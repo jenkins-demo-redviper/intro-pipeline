@@ -2,6 +2,9 @@ pipeline {
   agent {
     label 'jdk8'
   }
+    libraries {
+    lib("SharedLibs")
+  }
   stages {
     stage('Say hello') {
       steps {
@@ -31,6 +34,19 @@ pipeline {
           }
         }
       }
+          stage('Checkpoint') {
+         agent none
+         steps {
+            checkpoint 'Checkpoint'
+         }
+      }
+
+          stage('Shared Lib') {
+         steps {
+             helloWorld("Jenkins")
+         }
+      }
+
   }
   environment {
     MY_NAME = 'Mary'
